@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f8;
+      color: #333;
+    }
+    header {
+      background-color: #1e2a38;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    section {
+        padding: 30px ; 
+        max-width: 1000px;
+        margin: auto;
+    }
+    
+main {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+     form {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+  
+    .form-section,
+.summary,
+.operations {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+form input,
+form select,
+form button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+form button {
+  background-color: #2ecc71;
+  color: white;
+  cursor: pointer;
+  grid-column: span 2;
+}
+
+form button:hover {
+  background-color: #27ae60;
+}
+
+ul {
+  list-style: none;
+}
+
+ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+         footer {
+      background-color: #1e2a38;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+     
+    </style>
+</head>
+<body>
+    <header>
+  <h1>FinTrack – Suivi & Simulation de Patrimoine</h1>
+  <nav>
+    <a href="#dashboard">Tableau de bord</a>
+    <a href="#actions">Actions</a>
+    <a href="#cryptos">Cryptos</a>
+    <a href="#etf">ETF</a>
+    <a href="#immobilier">Immobilier</a>
+    <a href="#simulateur">Simulateur</a>
+    <a href="budget.html">Gestion de budget</a>
+
+  </nav>
+</header>
+<main>
+    <section class="form-section">
+      <h2>Achat Crypto</h2>
+      <form id="budget-achat">
+        <input type="text" id="nomCrypto" placeholder="Nom de la Crypto" required />
+        <input type="number" id="montant" placeholder="Montant (€)" required />
+        <input type="text" id="prixDachat" placeholder="Prix D achat" required /> 
+         <select id="partage">
+            <option value="">Choisissez une crypto</option> 
+            <option value="bitcoin">Bitcoin</option>
+            <option value="ethereum">Ethereum</option>
+            <option value="ripple">XRP</option>
+            <option value="solana">Solana</option>
+      </select>
+        <button type="submit" id="btn">calculer </button>
+      </form>
+    </section>
+
+    <section class="summary">
+      <h2>Résumé</h2>
+    <p>Achat : <span id="Achat">0 </span><img src="" id="cryptoLogo" alt="" width="32">  </p>
+      <p>Vente : <span id="depense">0 €</span></p>
+      <p>Solde : <span id="solde">0 €</span></p>
+    </section>
+ <section class="form-section">
+      <h2>Vente Crypto</h2>
+      <form id="form-vente">
+  <label>
+    Quantité : <span id="affich"></span><br>
+    Crypto : <span id="afficCrypto"></span><br>
+    Montant de vente : <span id="affichVente"></span><br>
+     P/L : <span id="resultatVente" style="font-weight:bold;"></span>
+  </label>
+
+  <input type="text" id="prixVente" placeholder="Prix de vente" required /> 
+  <button type="submit" id="btnVente">Calculer</button>
+</form>
+
+    </section>
+    <section class="operations">
+  <h2>Liste des opérations</h2>
+  <div class="tableaux">
+    <div class="colonne">
+      <h3></h3>
+      <ul id="tabDepense"></ul>
+    </div>
+    <div class="colonne">
+      <h3></h3>
+      <ul id="tabRevenu"></ul>
+    </div>
+  </div>
+</section>
+    
+  </main>
+    <footer>
+  <p>&copy; 2025 FinTrack - Créé par Julien</p>
+  <a href="#" style="color:#aad8ff;">Mentions légales</a> |
+  <a href="#" style="color:#aad8ff;">Conditions d'utilisation</a>
+</footer>
+<script>
+    const nomCrypto = document.getElementById('nomCrypto') ;
+    const prix =document.getElementById('montant') ;
+    const btn = document.getElementById('btn') ;
+    const prixDachat = document.getElementById('prixDachat') ;
+    const affichAchat = document.getElementById('Achat') ;
+    const affich =document.getElementById('affich') ;
+    const affichVente = document.getElementById('affichVente') ;
+    const btnVente = document.getElementById('btnVente') ;
+    const prixVente = document.getElementById('prixVente') ;
+    const afficCrypto = document.getElementById('afficCrypto') ; 
+    const resultatVente = document.getElementById('resultatVente') ; 
+     let qtCrypto = 0 ;
+     let price = 0 ; 
+    btn.addEventListener('click' , (e) =>{
+         e.preventDefault();
+
+         const pAchat = parseFloat(prixDachat.value) ;
+        const crypto = nomCrypto.value.trim() ;
+         price = parseFloat(prix.value) ;
+
+        console.log("crypto choisie " ,crypto) ;
+        console.log(price) ;
+        console.log(pAchat) ;
+       
+        if(isNaN(pAchat) || isNaN(price)|| crypto===""){
+            window.alert('veuillez remplir tous les champs correctement') ;
+            return ; 
+        }
+        
+        qtCrypto = price /pAchat ; 
+
+    
+        affichAchat.textContent =qtCrypto.toFixed(6) + " " + crypto ;
+        affich.textContent =  qtCrypto.toFixed(6)   ;
+        afficCrypto.textContent = crypto  ;
+      
+ 
+    }) ;
+   btnVente.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const prixdeVente = parseFloat(prixVente.value);
+
+  console.log("prixVente.value =", prixVente.value);
+  console.log("prixdeVente =", prixdeVente);
+  console.log("qtCrypto =", qtCrypto);
+
+  if (isNaN(prixdeVente)) {
+    alert("Saisis un prix de vente valide.");
+    return;
+  }
+
+  if (qtCrypto === 0) {
+    alert("Fais un achat de crypto d'abord.");
+    return;
+  }
+
+  const prixAchat = parseFloat(prixDachat.value);
+  const montantVente = prixdeVente * qtCrypto;
+  const montantAchat = prixAchat * qtCrypto;
+
+  let resultat = "";
+  if (montantVente > montantAchat) {
+    resultat = "Gain de " + (montantVente - montantAchat).toFixed(2) + " €";
+    resultatVente.style.color = "green";
+  } else if (montantVente < montantAchat) {
+    resultat = "Perte de " + (montantAchat - montantVente).toFixed(2) + " €";
+    resultatVente.style.color = "red";
+  } else {
+    resultat = "Aucun gain ni perte";
+    resultatVente.style.color = "gray";
+  }
+
+  affichVente.textContent = montantVente.toFixed(2) + " €";
+  resultatVente.textContent = resultat;
+});
+
+
+  </script>
+</body>
+</html>
