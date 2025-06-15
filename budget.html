@@ -143,6 +143,42 @@ ul li {
       padding: 20px;
       margin-top: 40px;
     }
+    @media (max-width: 600px) {
+  form {
+    grid-template-columns: 1fr; /* Une seule colonne */
+  }
+
+  form input,
+  form select,
+  form button {
+    width: 100%; /* Force à prendre toute la largeur dispo */
+  }
+.tableaux {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0;
+
+}
+.colonne{
+  font-size: 15px;
+  min-width: 5px;
+margin: 0px;
+padding: 0px;
+height: auto;
+width: 50%;
+}
+.operations {
+  margin: 0;
+  padding: 10px;
+}
+  main {
+    padding: 10px;
+    overflow-x: hidden; /* Évite le scroll horizontal */
+  }
+}
+
+
   </style>
 </head>
 <body>
